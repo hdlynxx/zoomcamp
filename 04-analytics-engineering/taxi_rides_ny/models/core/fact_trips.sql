@@ -5,20 +5,20 @@
 }}
 
 with green_tripdata as (
-    select *, 
+    select *,
         'Green' as service_type
-    from {{ ref('stg_green_tripdata') }}
-), 
+    from {{ ref('stg__green_tripdata') }}
+),
 yellow_tripdata as (
-    select *, 
+    select *,
         'Yellow' as service_type
-    from {{ ref('stg_yellow_tripdata') }}
-), 
+    from {{ ref('stg__yellow_tripdata') }}
+),
 trips_unioned as (
     select * from green_tripdata
-    union all 
+    union all
     select * from yellow_tripdata
-), 
+),
 dim_zones as (
     select * from {{ ref('dim_zones') }}
     where borough != 'Unknown'
